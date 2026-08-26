@@ -44,7 +44,7 @@ print("Monto de compra: S/ \(montoCompra) | Monto Financiado: S/ \(montoFinancia
 
 var saldoPendiente = montoFinanciado
 
-print("Mes\t|\tMonto Inicial\t|\tCuota Mensual\t|\tResta x Pago")
+print("Mes\t|\tMonto inicial\t|\tCuota mensual\t|\tResta x pago")
 print("---------------------------------------------------------------------")
 
 for mes in 1...meses {
