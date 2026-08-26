@@ -29,3 +29,17 @@ print("monto total de la compra : \(montoCompra)")
 
 print("Elige el plan de pago (6, 12, 24):")
 let meses = Int(readLine() ?? "0") ?? 6
+
+//Plan de pago
+
+let interes = calcularInteres(meses: meses, montoCompra: montoCompra)
+let montoFinanciado = montoCompra + interes
+let cuotaMensual = montoFinanciado / Double(meses)
+
+//Encabezado
+
+print("\n--- Plan de pago ---")
+print("Producto:   \(producto) | Interés: S/ \(interes) | Cuota M: S/ \(cuotaMensual)")
+print("Monto de compra: S/ \(montoCompra) | Monto Financiado: S/ \(montoFinanciado)\n")
+
+
