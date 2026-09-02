@@ -32,3 +32,16 @@ for i in 1...totalProductos {
     let cantidad = Int(entradaCantidad) ?? cantidadesDemo[i - 1]
     cantidades.append(cantidad)
 }
+
+// TODO 12: Calcular subtotales
+var subtotales: [Double] = []
+for i in 0..<nombres.count {
+    let sub = precios[i] * Double(cantidades[i])
+    subtotales.append(sub)
+}
+
+// TODO 13: Total del carrito
+var totalCarrito = 0.0
+for sub in subtotales {
+    totalCarrito += sub
+}
