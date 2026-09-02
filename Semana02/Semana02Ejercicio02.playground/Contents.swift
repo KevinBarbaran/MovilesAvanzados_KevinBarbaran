@@ -38,3 +38,45 @@ let mesAdelantado = Int(readLine() ?? "0") ?? 3
 print("Monto Adicional a Pagar ese Mes (S/.):")
 let montoAdicional = Double(readLine() ?? "0") ?? 1000.0
 
+// 3. Cálculos de Financiamiento
+let interes = calcularInteres(meses: meses, montoCompra: montoCompra)
+let montoFinanciado = montoCompra + interes
+let cuotaMensual = montoFinanciado / Double(meses)
+
+print("\n===== PLAN DE PAGO =====")
+print("Producto: \(producto)")
+print("Monto Compra: S/ \(montoCompra) | Interés: S/ \(interes)")
+print("Monto Financiado: S/ \(montoFinanciado) | Cuota Mensual: S/ \(cuotaMensual.formatted(.number.precision(.fractionLength(2))))\n")
+
+// 4. Generación de la Tabla
+var saldoPendiente = montoFinanciado
+var mesesPagados = 0
+let calendario = Calendar.current
+let fechaActual = Date()
+
+// Formateador para la columna de Fecha (dd/MM/yyyy)
+let dateFormatter = DateFormatter()
+dateFormatter.dateFormat = "dd/MM/yyyy"
+
+print("Mes\t|\tFecha\t\t|\tMonto Inicial\t|\tPago\t\t|\tResta por Pagar")
+print("----------------------------------------------------------------------------------------------------")
+
+for mes in 1...meses {
+    if saldoPendiente <= 0 {
+        break
+    }
+    
+    mesesPagados += 1
+    let montoInicial = saldoPendiente
+    
+    // Calcular la fecha para el mes correspondiente
+    let fechaMes = calendario.date(byAdding: .month, value: mes - 1, to: fechaActual) ?? fechaActual
+    let fechaStr = dateFormatter.string(from: fechaMes)
+    
+    // Determinar el pago de este mes (Cuota normal + Monto adicional si aplica)
+    var pagoMes = cuotaMensual
+    if mes == mesAdelantado {
+        pagoMes += montoAdicional
+    }
+    
+
