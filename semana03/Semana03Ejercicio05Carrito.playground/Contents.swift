@@ -45,3 +45,21 @@ var totalCarrito = 0.0
 for sub in subtotales {
     totalCarrito += sub
 }
+
+// TODO 14: Nombre del cliente
+print("\nNombre del cliente:")
+let entradaCliente = readLine() ?? ""
+let cliente = entradaCliente.isEmpty ? "María García" : entradaCliente
+
+// TODO 15: Descuento
+var descPct = 0.0
+if totalCarrito >= 5000 {
+    descPct = 0.15
+} else if totalCarrito >= 2000 {
+    descPct = 0.10
+} else if totalCarrito >= 500 {
+    descPct = 0.05
+}
+
+let descuento = totalCarrito * descPct
+let totalConDesc = totalCarrito - descuento
