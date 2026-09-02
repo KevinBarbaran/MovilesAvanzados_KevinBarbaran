@@ -79,4 +79,21 @@ for mes in 1...meses {
         pagoMes += montoAdicional
     }
     
+    // Evitar sobrepagar si la cuota + adicional supera la deuda restante
+    if pagoMes > saldoPendiente {
+        pagoMes = saldoPendiente
+    }
+    
+    saldoPendiente -= pagoMes
+    if saldoPendiente < 0.001 {
+        saldoPendiente = 0.0
+    }
+    
+    let mInicialStr = montoInicial.formatted(.number.precision(.fractionLength(2)))
+    let pagoStr = pagoMes.formatted(.number.precision(.fractionLength(2)))
+    let restaStr = saldoPendiente.formatted(.number.precision(.fractionLength(2)))
+    
+    print("\(mes)\t|\t\(fechaStr)\t|\tS/ \(mInicialStr)\t|\tS/ \(pagoStr)\t|\tS/ \(restaStr)")
+}
 
+print("\nMeses Pagados: \(mesesPagados) de \(meses)")
