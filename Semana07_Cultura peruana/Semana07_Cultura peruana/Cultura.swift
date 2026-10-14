@@ -5,4 +5,11 @@
 //  Created by Tecsup on 14/10/26.
 //
 
-import Foundation
+import UIKit
+
+struct Cultura {
+    let nombre: String
+    let region: String
+    let descripcion: String
+    let imagenNombre: String
+}
