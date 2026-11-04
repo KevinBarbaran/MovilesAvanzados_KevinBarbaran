@@ -6,13 +6,44 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct NuevoAlumnoView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
-}
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
 
-#Preview {
-    NuevoAlumnoView()
+    @State private var apellido = ""
+    @State private var nombre = ""
+    @State private var dni = ""
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section(header: Text("Datos del Alumno")) {
+                    TextField("Apellido", text: $apellido)
+                    TextField("Nombre", text: $nombre)
+                    TextField("DNI", text: $dni)
+                        .keyboardType(.numberPad)
+                }
+
+                Button("Guardar Alumno") {
+                    let nuevoAlumno = Alumno(apellido: apellido, nombre: nombre, dni: dni)
+                    modelContext.insert(nuevoAlumno)
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        print("Error al guardar alumno: \(error)")
+                    }
+                    dismiss()
+                }
+                .disabled(apellido.isEmpty || nombre.isEmpty || dni.isEmpty)
+            }
+            .navigationTitle("Nuevo Alumno")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancelar") { dismiss() }
+                }
+            }
+        }
+    }
 }
