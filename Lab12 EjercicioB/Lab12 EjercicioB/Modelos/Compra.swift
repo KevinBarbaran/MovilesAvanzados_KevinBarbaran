@@ -17,11 +17,10 @@ class Compra {
     var total: Double
     var alCredito: Bool
     var vence: Date
-    var estado: String           // "Pendiente", "Aprobada" o "Rechazada"
+    var estado: String
     var pagada: Bool
     var motivoRechazo: String?
 
-    // Lado "uno" de las relaciones (el inverso .deny está declarado en Usuario, Proveedor y Producto)
     var comprador: Usuario?
     var proveedor: Proveedor?
     var producto: Producto?
@@ -42,7 +41,6 @@ class Compra {
 
     var subtotal: Double { ReglasNegocio.subtotal(cantidad: cantidad, costoUnitario: costoUnitario) }
 
-    /// Pendiente de pago con fecha vencida => se muestra como VENCIDA
     var estaVencida: Bool {
         alCredito && !pagada && estado == EstadoCompra.aprobada.rawValue && vence < Date.now
     }

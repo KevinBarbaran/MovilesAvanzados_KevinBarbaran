@@ -21,7 +21,6 @@ class Proveedor {
         self.ruc = ruc
     }
 
-    // Valores calculados desde las compras del proveedor (no se guardan)
     var comprasAprobadas: [Compra] {
         compras.filter { $0.estado == EstadoCompra.aprobada.rawValue }
     }

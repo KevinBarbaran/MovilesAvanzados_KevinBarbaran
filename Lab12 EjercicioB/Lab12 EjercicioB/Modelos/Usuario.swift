@@ -15,7 +15,6 @@ class Usuario {
     var clave: String
     var rol: String
 
-    // Un usuario con compras registradas no se puede borrar (.deny)
     @Relationship(deleteRule: .deny, inverse: \Compra.comprador)
     var compras: [Compra] = []
 
