@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RaizView: View {
     @Environment(Sesion.self) private var sesion

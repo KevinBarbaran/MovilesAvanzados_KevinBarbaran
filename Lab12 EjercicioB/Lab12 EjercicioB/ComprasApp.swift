@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct Lab12_EjercicioBApp: App {
+struct ComprasApp: App {
     @State private var sesion = Sesion()
 
     var body: some Scene {
@@ -17,7 +17,6 @@ struct Lab12_EjercicioBApp: App {
             RaizView()
                 .environment(sesion)
                 .environment(\.locale, Locale(identifier: "es_PE"))
-                // Contenedor persistente para toda la app (igual que en la Actividad 02)
                 .modelContainer(ModelContainerProvider.shared.container)
         }
     }
