@@ -1,0 +1,27 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Colección usada por la app: /messages/{id}
+    match /messages/{messageId} {
+
+      // Solo usuarios autenticados pueden leer los mensajes
+      allow read: if request.auth != null;
+
+      // Solo usuarios autenticados pueden crear mensajes válidos:
+      //  - el correo del documento debe ser el del usuario que escribe (no se puede suplantar)
+      //  - el texto debe ser string, no vacío y de máximo 500 caracteres
+      //  - el timestamp debe ser de tipo fecha
+      allow create: if request.auth != null
+                    && request.resource.data.userEmail == request.auth.token.email
+                    && request.resource.data.text is string
+                    && request.resource.data.text.size() > 0
+                    && request.resource.data.text.size() <= 500
+                    && request.resource.data.timestamp is timestamp;
+
+      // Los mensajes enviados no se pueden editar ni borrar
+      allow update, delete: if false;
+    }
+  }
+}
